@@ -1,0 +1,23 @@
+{
+  "name": "CodeFunDoServer",
+  "version": "1.0.0",
+  "description": "the revolution",
+  "main": "index.js",
+  "author": "Mrigesh Madaan",
+  "license": "ISC",
+  "engines": {
+    "node": "6.9.4",
+    "npm": "3.10.10"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "dependencies": {
+    "botbuilder": "^3.6.0",
+    "botbuilder-azure": "^3.0.2",
+    "express": "^4.14.0",
+    "express-session": "^1.13.0",
+    "http": "0.0.0",
+    "socket.io-client": "^2.0.4"
+  }
+}
