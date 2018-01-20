@@ -2,6 +2,8 @@ var builder = require('botbuilder');
 
 var lib = new builder.Library('productivity');
 
+import * as wrapperfunc from '../../app/routes/wrappers.js';
+
 lib.dialog('info/website', [
 	function(session, args) {
 		var website;
@@ -73,6 +75,7 @@ lib.dialog('actions/block', [
     function (session, results) {
         session.dialogData.duration = results.duration;
         session.send("TO BE: Blocked %s for %s for %s seconds", session.dialogData.website, session.dialogData.name, session.dialogData.duration);
+        wrapperfunc.blockURL(session.userData.res,session.userData.email,session.userData.password,session.dialogData.name,session.dialogData.website,session.dialogData.duration);
         session.endDialog();
         //Communication goes here!
         //session.send('https://www.contentholmes.com/blockURL/?email='+session.userData.email+'&password='+session.userData.password+'&childName='+session.dialogData.name+'&url='+session.dialogData.website);
@@ -118,6 +121,7 @@ lib.dialog('actions/session',[
     function (session, results, next) {
         session.dialogData.time = results.duration;
         session.send("TO BE: Now %s will be able to access internet only for %s seconds.", session.dialogData.name, JSON.stringify(session.dialogData.time));
+        wrapperfunc.session(session.userData.res,session.userData.email,session.userData.password,session.dialogData.name,session.dialogData.time);
         session.endDialog();
         //Communication goes here!
         // request('https://www.contentholmes.com/session/?email='+session.userData.email+'&password='+session.userData.password+'&childName='+session.dialogData.name+'&url='+session.dialogData.website+'&duration='+session.dialogData.time, function(error, response, body) {
@@ -161,6 +165,7 @@ lib.dialog('actions/unblock', [
     function (session, results, next) {
         session.dialogData.website = results.website;
         session.send("TO BE: Unblocked %s for %s :-)", session.dialogData.website, session.dialogData.name);
+        wrapperfunc.unblockURL(session.userData.res,session.userData.email,session.userData.password,session.dialogData.name,session.dialogData.website);
         session.endDialog();
         
         //Communication goes here!
@@ -199,6 +204,7 @@ lib.dialog('actions/unsession',[
     function (session, results, next) {
     	session.dialogData.name = results.childName;
     	session.send("TO BE: Removed sessioning for %s :-)", session.dialogData.name);
+        wrapperfunc.unsession(session.userData.res,session.userData.email,session.userData.password,session.dialogData.name);
     	session.endDialog();
         
         //Communication goes here!
